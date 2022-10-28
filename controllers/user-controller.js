@@ -1,9 +1,11 @@
-const { User, Thought } = require("../models");
+const { User } = require("../models");
 
 const userController = {
   //getAllUsers
   getAllUsers(req, res) {
     User.find({})
+      .populate("friends")
+      .populate("thoughts")
       .select("-__v")
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
